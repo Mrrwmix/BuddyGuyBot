@@ -1,0 +1,24 @@
+{
+  "name": "buddyguybot",
+  "version": "1.0.0",
+  "description": "Discord bot project",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mrrwmix/BuddyGuyBot.git"
+  },
+  "author": "Matthew Winemiller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mrrwmix/BuddyGuyBot/issues"
+  },
+  "homepage": "https://github.com/Mrrwmix/BuddyGuyBot#readme"
+}
