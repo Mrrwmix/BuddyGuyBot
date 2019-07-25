@@ -3,17 +3,24 @@ const Discord = require('discord.js');
 const axios = require('axios');
 const moment = require('moment');
 const Pokedex = require('pokedex-promise-v2');
+const Giphy = require('giphy-js-sdk-core');
 
 const bot = new Discord.Client();
 
 const token = process.env.DISCORD_TOKEN;
 const darkskyKey = process.env.DARK_SKY_KEY;
+var giphyToken = process.env.GIPHY_KEY;
 const prefix = '!';
 
 var P = new Pokedex();
+var giphy = Giphy(giphyToken);
 bot.on('ready', () => {
   console.log('Bot is working');
+  giphy.random('gifs', '').then(res => {
+    console.log(res.data.url);
+  });
 });
+bot.login(token);
 
 bot.on('message', msg => {
   if (msg.content == 'hello') {
@@ -57,9 +64,13 @@ bot.on('message', msg => {
   console.log(parameters);
 
   switch (command) {
+    case 'random':
+      giphy.random('gifs', '').then(res => {
+        msg.channel.send(`${res.data.url}`);
+      });
+      break;
     case 'pokemon':
       P.getPokemonByName(parameters).then(function(response) {
-        console.log(response);
         var stats = '';
         for (x in response.stats) {
           stats = stats.concat(
@@ -150,6 +161,3 @@ bot.on('message', msg => {
       break;
   }
 });
-
-function trump() {}
-bot.login(token);
