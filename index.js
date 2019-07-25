@@ -2,6 +2,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const axios = require('axios');
 const moment = require('moment');
+const Pokedex = require('pokedex-promise-v2');
 
 const bot = new Discord.Client();
 
@@ -9,6 +10,7 @@ const token = process.env.DISCORD_TOKEN;
 const darkskyKey = process.env.DARK_SKY_KEY;
 const prefix = '!';
 
+var P = new Pokedex();
 bot.on('ready', () => {
   console.log('Bot is working');
 });
@@ -55,6 +57,33 @@ bot.on('message', msg => {
   console.log(parameters);
 
   switch (command) {
+    case 'pokemon':
+      P.getPokemonByName(parameters).then(function(response) {
+        console.log(response);
+        var stats = '';
+        for (x in response.stats) {
+          stats = stats.concat(
+            `${response.stats[x].stat.name}=${response.stats[x].base_stat} `
+          );
+        }
+        var type;
+        if (response.types.length > 1) {
+          type = `${response.types[0].type.name} and ${
+            response.types[1].type.name
+          }`;
+        } else {
+          type = `${response.types[0].type.name}`;
+        }
+        msg.channel.send(
+          `${response.name} is Pokemon #${
+            response.id
+          }, a ${type} type. Stats: ${stats}. Sprite: ${
+            response.sprites.front_default
+          }`
+        );
+      });
+      break;
+
     case 'concerts':
       axios
         .get(
