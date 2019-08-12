@@ -16,14 +16,14 @@ var P = new Pokedex();
 var giphy = Giphy(giphyToken);
 bot.on('ready', () => {
   console.log('Bot is working');
-  giphy.random('gifs', '').then(res => {
-    console.log(res.data.url);
+  giphy.search('gifs', 'pokemon', res => {
+    console.log(res);
   });
 });
 bot.login(token);
 
 bot.on('message', msg => {
-  if (msg.content == 'hello') {
+  if (msg.content.toLowerCase() == 'hello') {
     let chance = Math.random();
     if (chance > 0.9) {
       msg.reply('Eff off!');
@@ -65,7 +65,7 @@ bot.on('message', msg => {
 
   switch (command) {
     case 'random':
-      giphy.random('gifs', '').then(res => {
+      giphy.random('gifs', parameters).then(res => {
         msg.channel.send(`${res.data.url}`);
       });
       break;
@@ -141,20 +141,6 @@ bot.on('message', msg => {
               response.data.imdbRating
             }`
           );
-        });
-      break;
-    case 'wtf':
-      axios
-        .get(`https://foaas.com/madison/${parameters}/buddyGuybot`)
-        .then(response => {
-          msg.channel.send(response.data.message);
-        });
-      break;
-    case 'trump':
-      axios
-        .get('https://foaas.com/everything/buddyGuyBot')
-        .then(function(response) {
-          msg.reply(response.data.message);
         });
       break;
     default:
