@@ -16,9 +16,6 @@ var P = new Pokedex();
 var giphy = Giphy(giphyToken);
 bot.on('ready', () => {
   console.log('Bot is working');
-  giphy.search('gifs', 'pokemon', res => {
-    console.log(res);
-  });
 });
 bot.login(token);
 
@@ -64,8 +61,20 @@ bot.on('message', msg => {
   console.log(parameters);
 
   switch (command) {
+    case 'joke':
+      axios
+        .get('https://icanhazdadjoke.com/slack')
+        .then(response =>
+          msg.channel.send(`${response.data.attachments[0].text}`)
+        );
+      break;
+    case 'sticker':
+      giphy.random('stickers', '').then(res => {
+        msg.channel.send(`${res.data.url}`);
+      });
+      break;
     case 'random':
-      giphy.random('gifs', parameters).then(res => {
+      giphy.random('gifs', '').then(res => {
         msg.channel.send(`${res.data.url}`);
       });
       break;
@@ -74,7 +83,7 @@ bot.on('message', msg => {
         var stats = '';
         for (x in response.stats) {
           stats = stats.concat(
-            `${response.stats[x].stat.name}=${response.stats[x].base_stat} `
+            `${response.stats[x].stat.name}(${response.stats[x].base_stat}) `
           );
         }
         var type;
@@ -88,7 +97,7 @@ bot.on('message', msg => {
         msg.channel.send(
           `${response.name} is Pokemon #${
             response.id
-          }, a ${type} type. Stats: ${stats}. Sprite: ${
+          }\nType: ${type}\nStats: ${stats}\nSprite: ${
             response.sprites.front_default
           }`
         );
