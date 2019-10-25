@@ -2,7 +2,7 @@
 
 ## Description
 
-A discord bot that queries various APIs in response to the commands described here. 
+A discord bot that queries various APIs in response to the commands described here.
 
 ## Initial Setup
 
@@ -16,24 +16,36 @@ GIPHY_KEY=YOUR_KEY_HERE
 
 ### !random
 
-Finds and posts a random gif from giphy. 
+![random search](/screenshots/random.png)
+
+Finds and posts a random gif from giphy.
 
 ### !pokemon NUMBER or NAME
+
+![pokemon command](/screenshots/pokemon.png)
 
 Uses a Pokemon API to find and post information about a pokemon.
 
 ### !joke
 
-Queries the icanhazdadjoke API to post a joke to the chat. 
+![joke command](/screenshots/joke.png)
+
+Queries the icanhazdadjoke API to post a joke to the chat.
 
 ### !sticker
+
+![sticker command](/screenshots/sticker.png)
 
 Finds a sticker from giphy.
 
 ### !concerts BAND_NAME
 
+![concert search](/screenshots/concerts.png)
+
 Searches for upcoming concerts and posts them.
 
 ### !movie MOVIE_NAME
 
-Posts information about a movie. 
+![movie search](/screenshots/movie.png)
+
+Posts information about a movie.
