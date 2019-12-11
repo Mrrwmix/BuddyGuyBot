@@ -9,11 +9,11 @@ const bot = new Discord.Client();
 
 const token = process.env.DISCORD_TOKEN;
 const darkskyKey = process.env.DARK_SKY_KEY;
-var giphyToken = process.env.GIPHY_KEY;
+let giphyToken = process.env.GIPHY_KEY;
 const prefix = '!';
 
-var P = new Pokedex();
-var giphy = Giphy(giphyToken);
+let P = new Pokedex();
+let giphy = Giphy(giphyToken);
 bot.on('ready', () => {
   console.log('Bot is working');
 });
@@ -57,16 +57,37 @@ bot.on('message', msg => {
   const command = args.shift().toLowerCase();
   console.log(args);
   console.log(command);
-  var parameters = args.join(' ');
+  let parameters = args.join(' ');
   console.log(parameters);
 
   switch (command) {
     case 'joke':
-      axios
-        .get('https://icanhazdadjoke.com/slack')
-        .then(response =>
-          msg.channel.send(`${response.data.attachments[0].text}`)
+      if (Math.random() > 0.5) {
+        axios
+          .get('https://icanhazdadjoke.com/slack')
+          .then(response =>
+            msg.channel.send(`${response.data.attachments[0].text}`)
+          );
+      } else {
+        axios
+          .get('https://official-joke-api.appspot.com/random_joke')
+          .then(response => {
+            msg.channel.send(
+              `${response.data.setup}\n${response.data.punchline}`
+            );
+          });
+      }
+      break;
+    case 'catfact':
+      axios.get('https://cat-fact.herokuapp.com/facts').then(response => {
+        msg.channel.send(
+          `${
+            response.data.all[
+              Math.floor(Math.random() * response.data.all.length)
+            ].text
+          }`
         );
+      });
       break;
     case 'sticker':
       giphy.random('stickers', '').then(res => {
@@ -80,26 +101,20 @@ bot.on('message', msg => {
       break;
     case 'pokemon':
       P.getPokemonByName(parameters).then(function(response) {
-        var stats = '';
+        let stats = '';
         for (x in response.stats) {
           stats = stats.concat(
             `${response.stats[x].stat.name}(${response.stats[x].base_stat}) `
           );
         }
-        var type;
+        let type;
         if (response.types.length > 1) {
-          type = `${response.types[0].type.name} and ${
-            response.types[1].type.name
-          }`;
+          type = `${response.types[0].type.name} and ${response.types[1].type.name}`;
         } else {
           type = `${response.types[0].type.name}`;
         }
         msg.channel.send(
-          `${response.name} is Pokemon #${
-            response.id
-          }\nType: ${type}\nStats: ${stats}\nSprite: ${
-            response.sprites.front_default
-          }`
+          `${response.name} is Pokemon #${response.id}\nType: ${type}\nStats: ${stats}\nSprite: ${response.sprites.front_default}`
         );
       });
       break;
@@ -112,7 +127,7 @@ bot.on('message', msg => {
             .join('+')}/events?app_id=codingbootcamp`
         )
         .then(response => {
-          for (var i = 0; i < response.data.length; i++) {
+          for (let i = 0; i < response.data.length; i++) {
             msg.channel.send(
               response.data[i].venue.name +
                 ' in ' +
@@ -142,13 +157,7 @@ bot.on('message', msg => {
             return msg.channel.send(response.data.Error);
           }
           msg.channel.send(
-            `${response.data.Title} was released in the year ${
-              response.data.Year
-            } and produced in ${response.data.Country}. Plot: ${
-              response.data.Plot
-            } Actors: ${response.data.Actors}. IMDB Rating: ${
-              response.data.imdbRating
-            }`
+            `${response.data.Title} was released in the year ${response.data.Year} and produced in ${response.data.Country}. Plot: ${response.data.Plot} Actors: ${response.data.Actors}. IMDB Rating: ${response.data.imdbRating}`
           );
         });
       break;
