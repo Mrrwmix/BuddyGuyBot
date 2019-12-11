@@ -30,7 +30,7 @@ Uses a Pokemon API to find and post information about a pokemon.
 
 ![joke command](/screenshots/joke.png)
 
-Queries the icanhazdadjoke API to post a joke to the chat.
+Queries the icanhazdadjoke or official-joke-api API to post a joke to the chat.
 
 ### !sticker
 
@@ -49,3 +49,7 @@ Searches for upcoming concerts and posts them.
 ![movie search](/screenshots/movie.png)
 
 Posts information about a movie.
+
+### !catfact
+
+Gets a catfact from the [Cat Fact API](https://alexwohlbruck.github.io/cat-facts/)!
