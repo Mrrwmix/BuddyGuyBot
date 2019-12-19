@@ -1,7 +1,13 @@
+require('dotenv').config();
 const axios = require('axios');
+const Giphy = require('giphy-js-sdk-core');
+let giphyToken = process.env.GIPHY_KEY;
+let giphy = Giphy(giphyToken);
 
-axios.get('https://cat-fact.herokuapp.com/facts').then(response => {
-  console.log(
-    response.data.all[Math.floor(Math.random() * response.data.all.length)].text
-  );
+// giphy.random('gifs', `sesame street`).then(res => {
+//   console.log(`${res.data.url}`);
+// });
+
+giphy.search('gifs', { q: 'sesame street' }).then(res => {
+  console.log(res.data[Math.floor(Math.random() * res.data.length)].url);
 });

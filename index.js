@@ -89,6 +89,19 @@ bot.on('message', msg => {
         );
       });
       break;
+    case 'gif':
+      if (parameters.length === 0) {
+        msg.channel.send(
+          `Don't forget to type in something to search for after "!gif". Example: !gif pokemon`
+        );
+      } else {
+        giphy.search('gifs', { q: `${parameters}` }).then(res => {
+          msg.channel.send(
+            res.data[Math.floor(Math.random() * res.data.length)].url
+          );
+        });
+      }
+      break;
     case 'sticker':
       giphy.random('stickers', '').then(res => {
         msg.channel.send(`${res.data.url}`);
