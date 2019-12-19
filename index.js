@@ -96,10 +96,15 @@ bot.on('message', msg => {
         );
       } else {
         giphy.search('gifs', { q: `${parameters}` }).then(res => {
-          msg.channel.send(
-            `You typed ${parameters}\n` +
+          if (res.data.length > 0) {
+            msg.channel.send(
               res.data[Math.floor(Math.random() * res.data.length)].url
-          );
+            );
+          } else {
+            msg.channel.send(
+              `There were no results on Giphy for "${parameters}"`
+            );
+          }
         });
       }
       break;

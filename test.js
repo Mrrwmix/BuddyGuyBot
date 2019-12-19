@@ -8,6 +8,7 @@ let giphy = Giphy(giphyToken);
 //   console.log(`${res.data.url}`);
 // });
 
-giphy.search('gifs', { q: 'sesame street' }).then(res => {
-  console.log(res.data[Math.floor(Math.random() * res.data.length)].url);
+giphy.search('gifs', { q: 'yomega' }).then(res => {
+  // console.log(res.data[Math.floor(Math.random() * res.data.length)].url);
+  console.log(res.data.length > 0, 'length');
 });
