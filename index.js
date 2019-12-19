@@ -97,7 +97,8 @@ bot.on('message', msg => {
       } else {
         giphy.search('gifs', { q: `${parameters}` }).then(res => {
           msg.channel.send(
-            res.data[Math.floor(Math.random() * res.data.length)].url
+            `You typed ${parameters}\n` +
+              res.data[Math.floor(Math.random() * res.data.length)].url
           );
         });
       }
