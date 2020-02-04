@@ -7,7 +7,7 @@ const Giphy = require('giphy-js-sdk-core');
 
 const bot = new Discord.Client();
 
-const token = process.env.DISCORD_TOKEN;
+const token = process.env.BOT_TOKEN;
 const darkskyKey = process.env.DARK_SKY_KEY;
 let giphyToken = process.env.GIPHY_KEY;
 const prefix = '!';
