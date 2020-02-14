@@ -14,7 +14,5 @@ let giphy = Giphy(giphyToken);
 // });
 
 axios
-  .get('https://evilinsult.com/generate_insult.php?lang=en&type=json')
-  .then(response => {
-    console.log(response.data.insult);
-  });
+  .get('https://evilinsult.com/generate_insult.php?lang=en&type=plaintext')
+  .then(response => console.log(response.data));

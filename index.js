@@ -182,9 +182,11 @@ bot.on('message', msg => {
       break;
     case 'insult':
       axios
-        .get('https://evilinsult.com/generate_insult.php?lang=en&type=json')
+        .get(
+          'https://evilinsult.com/generate_insult.php?lang=en&type=plaintext'
+        )
         .then(response => {
-          msg.channel.send(response.data.insult);
+          msg.channel.send(response.data);
         });
     default:
       break;
