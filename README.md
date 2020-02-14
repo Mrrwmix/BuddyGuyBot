@@ -53,3 +53,7 @@ Posts information about a movie.
 ### !catfact
 
 Gets a catfact from the [Cat Fact API](https://alexwohlbruck.github.io/cat-facts/)!
+
+### !insult
+
+Gets an insult from the [Evil Insult Generator](https://evilinsult.com/api/).
