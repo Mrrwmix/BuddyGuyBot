@@ -180,6 +180,12 @@ bot.on('message', msg => {
           );
         });
       break;
+    case 'insult':
+      axios
+        .get('https://evilinsult.com/generate_insult.php?lang=en&type=json')
+        .then(response => {
+          msg.channel.send(response.data.insult);
+        });
     default:
       break;
   }

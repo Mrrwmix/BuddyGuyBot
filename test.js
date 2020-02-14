@@ -8,7 +8,13 @@ let giphy = Giphy(giphyToken);
 //   console.log(`${res.data.url}`);
 // });
 
-giphy.search('gifs', { q: 'yomega' }).then(res => {
-  // console.log(res.data[Math.floor(Math.random() * res.data.length)].url);
-  console.log(res.data.length > 0, 'length');
-});
+// giphy.search('gifs', { q: 'yomega' }).then(res => {
+//   // console.log(res.data[Math.floor(Math.random() * res.data.length)].url);
+//   console.log(res.data.length > 0, 'length');
+// });
+
+axios
+  .get('https://evilinsult.com/generate_insult.php?lang=en&type=json')
+  .then(response => {
+    console.log(response.data.insult);
+  });
