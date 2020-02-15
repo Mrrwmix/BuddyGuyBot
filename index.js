@@ -199,7 +199,9 @@ bot.on('message', msg => {
           .get(`https://api.adviceslip.com/advice/search/${parameters}`)
           .then(response => {
             if (response.data.message) {
-              return msg.channel.send(response.data.message.text);
+              return msg.channel.send(
+                response.data.message.text.replace('.', `: ${parameters}.`)
+              );
             }
             msg.channel.send(
               response.data.slips[
