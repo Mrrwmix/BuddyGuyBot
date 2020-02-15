@@ -13,6 +13,6 @@ let giphy = Giphy(giphyToken);
 //   console.log(res.data.length > 0, 'length');
 // });
 
-axios
-  .get('https://evilinsult.com/generate_insult.php?lang=en&type=plaintext')
-  .then(response => console.log(response.data));
+axios.get('https://api.adviceslip.com/advice').then(response => {
+  console.log(response.data.slip.advice);
+});

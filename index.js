@@ -188,6 +188,20 @@ bot.on('message', msg => {
         .then(response => {
           msg.channel.send(response.data);
         });
+      break;
+    case 'advice':
+      if (parameters.length === 0) {
+        axios.get('https://api.adviceslip.com/advice').then(response => {
+          msg.channel.send(response.data.slip.advice);
+        });
+      } else {
+        axios
+          .get(`https://api.adviceslip.com/advice/search/${parameters}`)
+          .then(response => {
+            msg.channel.send(response.data.slip.advice);
+          });
+      }
+      break;
     default:
       break;
   }
