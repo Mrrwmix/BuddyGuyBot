@@ -191,10 +191,12 @@ bot.on('message', msg => {
       break;
     case 'advice':
       if (parameters.length === 0) {
+        msg.channel.send(parameters);
         axios.get('https://api.adviceslip.com/advice').then(response => {
           msg.channel.send(response.data.slip.advice);
         });
       } else {
+        msg.channel.send(parameters);
         axios
           .get(`https://api.adviceslip.com/advice/search/${parameters}`)
           .then(response => {
