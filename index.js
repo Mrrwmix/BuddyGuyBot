@@ -201,7 +201,11 @@ bot.on('message', msg => {
             if (response.data.message) {
               return msg.channel.send(response.data.message.text);
             }
-            msg.channel.send(response.data.slip.advice);
+            msg.channel.send(
+              response.data.slips[
+                Math.floor(Math.random() * response.data.slips.length)
+              ].advice
+            );
           });
       }
       break;
