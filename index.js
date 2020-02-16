@@ -211,6 +211,13 @@ bot.on('message', msg => {
           });
       }
       break;
+    case 'photo':
+      axios.get('https://picsum.photos/500/300').then(response => {
+        return msg.channel.send(
+          response.request.res.client._httpMessage.res.responseUrl
+        );
+      });
+      break;
     default:
       break;
   }

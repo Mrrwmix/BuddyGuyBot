@@ -13,6 +13,47 @@ let giphy = Giphy(giphyToken);
 //   console.log(res.data.length > 0, 'length');
 // });
 
-axios.get('https://api.adviceslip.com/advice').then(response => {
-  console.log(response.data.slip.advice);
+axios.get('https://picsum.photos/500/300').then(response => {
+  // console.log(Object.keys(response.request.res.client._httpMessage.res));
+  console.log(response.request.res.client._httpMessage.res.responseUrl);
 });
+/*
+[ '_events',
+  '_eventsCount',
+  '_maxListeners',
+  'output',
+  'outputEncodings',
+  'outputCallbacks',
+  'outputSize',
+  'writable',
+  '_last',
+  'chunkedEncoding',
+  'shouldKeepAlive',
+  'useChunkedEncodingByDefault',
+  'sendDate',
+  '_removedConnection',
+  '_removedContLen',
+  '_removedTE',
+  '_contentLength',
+  '_hasBody',
+  '_trailer',
+  'finished',
+  '_headerSent',
+  'socket',
+  'connection',
+  '_header',
+  '_onPendingData',
+  'agent',
+  'socketPath',
+  'timeout',
+  'method',
+  'path',
+  '_ended',
+  'res',
+  'aborted',
+  'timeoutCb',
+  'upgradeOrConnect',
+  'parser',
+  'maxHeadersCount',
+  '_redirectable' ]
+  */
