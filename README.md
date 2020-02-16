@@ -57,3 +57,17 @@ Gets a catfact from the [Cat Fact API](https://alexwohlbruck.github.io/cat-facts
 ### !insult
 
 Gets an insult from the [Evil Insult Generator](https://evilinsult.com/api/).
+
+### !advice
+
+Retrieves an advice slip from the [Advice Slip API](https://api.adviceslip.com/). If a topic is provided, then it will search for advice based on that topic.
+
+For example: `!advice friends`
+
+![advice friends](/screenshots/advice.png)
+
+### !photo
+
+Queries lorem picsum and unsplash to send a pleasant, random 500 x 300 pixel photo to the chat.
+
+![random photo](/screenshots/photo.png)
