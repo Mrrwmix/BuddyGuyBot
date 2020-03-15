@@ -237,7 +237,7 @@ bot.on('message', msg => {
           .then(response => {
             if (response.data.countrydata) {
               msg.channel.send(
-                `Total cases: ${response.data.countrydata[0].total_cases}\nTotal recovered: ${response.data.countrydata[0].total_recovered}\nTotal deaths: ${response.data.countrydata[0].total_deaths}\nTotal new cases today: ${response.data.countrydata[0].total_new_cases_today}\nTotal new deaths today: ${response.data.countrydata[0].total_new_deaths_today}`
+                `${response.data.countrydata[0].info.title}'s Covid-19 stats\nTotal cases: ${response.data.countrydata[0].total_cases}\nTotal recovered: ${response.data.countrydata[0].total_recovered}\nTotal deaths: ${response.data.countrydata[0].total_deaths}\nTotal new cases today: ${response.data.countrydata[0].total_new_cases_today}\nTotal new deaths today: ${response.data.countrydata[0].total_new_deaths_today}`
               );
             } else {
               msg.channel.send(
