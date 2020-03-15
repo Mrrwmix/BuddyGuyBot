@@ -244,8 +244,8 @@ bot.on('message', msg => {
                 'Invalid country code. Use a 2-letter country code. Full list here:\nhttps://thevirustracker.com/api#indexpage'
               );
             }
-            msg.channel.send('something');
           });
       }
+      break;
   }
 });

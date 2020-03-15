@@ -71,3 +71,13 @@ For example: `!advice friends`
 Queries lorem picsum and unsplash to send a pleasant, random 500 x 300 pixel photo to the chat.
 
 ![random photo](/screenshots/photo.png)
+
+### !covid
+
+Without parameters, it will provide global statistics for the Covid-19 pandemic.
+
+![covid global](/screenshots/covid.png)
+
+With a 2-letter country code passed in, it will provide stats for that country.
+
+![covid US](/screenshots/covidCountry.png)
