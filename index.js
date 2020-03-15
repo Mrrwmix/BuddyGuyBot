@@ -220,5 +220,32 @@ bot.on('message', msg => {
       break;
     default:
       break;
+    case 'covid':
+      if (parameters.length === 0) {
+        axios
+          .get('https://thevirustracker.com/free-api?global=stats')
+          .then(response => {
+            msg.channel.send(
+              `Total cases: ${response.data.results[0].total_cases}\nTotal recovered: ${response.data.results[0].total_recovered}\nTotal deaths: ${response.data.results[0].total_deaths}\nNew cases today: ${response.data.results[0].total_new_cases_today}\nNew deaths today: ${response.data.results[0].total_new_deaths_today}`
+            );
+          });
+      } else {
+        axios
+          .get(
+            `https://thevirustracker.com/free-api?countryTotal=${parameters}`
+          )
+          .then(response => {
+            if (response.data.countrydata) {
+              msg.channel.send(
+                `Total cases: ${response.data.countrydata[0].total_cases}\nTotal recovered: ${response.data.countrydata[0].total_recovered}\nTotal deaths: ${response.data.countrydata[0].total_deaths}\nTotal new cases today: ${response.data.countrydata[0].total_new_cases_today}\nTotal new deaths today: ${response.data.countrydata[0].total_new_deaths_today}`
+              );
+            } else {
+              msg.channel.send(
+                'Invalid country code. Use a 2-letter country code. Full list here:\nhttps://thevirustracker.com/api#indexpage'
+              );
+            }
+            msg.channel.send('something');
+          });
+      }
   }
 });

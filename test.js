@@ -13,47 +13,14 @@ let giphy = Giphy(giphyToken);
 //   console.log(res.data.length > 0, 'length');
 // });
 
-axios.get('https://picsum.photos/500/300').then(response => {
-  // console.log(Object.keys(response.request.res.client._httpMessage.res));
-  console.log(response.request.res.client._httpMessage.res.responseUrl);
-});
-/*
-[ '_events',
-  '_eventsCount',
-  '_maxListeners',
-  'output',
-  'outputEncodings',
-  'outputCallbacks',
-  'outputSize',
-  'writable',
-  '_last',
-  'chunkedEncoding',
-  'shouldKeepAlive',
-  'useChunkedEncodingByDefault',
-  'sendDate',
-  '_removedConnection',
-  '_removedContLen',
-  '_removedTE',
-  '_contentLength',
-  '_hasBody',
-  '_trailer',
-  'finished',
-  '_headerSent',
-  'socket',
-  'connection',
-  '_header',
-  '_onPendingData',
-  'agent',
-  'socketPath',
-  'timeout',
-  'method',
-  'path',
-  '_ended',
-  'res',
-  'aborted',
-  'timeoutCb',
-  'upgradeOrConnect',
-  'parser',
-  'maxHeadersCount',
-  '_redirectable' ]
-  */
+axios
+  .get('https://thevirustracker.com/free-api?countryTotal=US')
+  .then(response => {
+    if (response.data.countrydata) {
+      console.log(
+        `Total cases: ${response.data.countrydata[0].total_cases}\nTotal recovered: ${response.data.countrydata[0].total_recovered}\nTotal deaths: ${response.data.countrydata[0].total_deaths}\nTotal new cases today: ${response.data.countrydata[0].total_new_cases_today}\nTotal new deaths today: ${response.data.countrydata[0].total_new_deaths_today}`
+      );
+    } else {
+      console.log('nope');
+    }
+  });
