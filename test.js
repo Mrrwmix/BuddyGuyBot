@@ -3,6 +3,7 @@ const axios = require('axios');
 const Giphy = require('giphy-js-sdk-core');
 let giphyToken = process.env.GIPHY_KEY;
 let giphy = Giphy(giphyToken);
+const cheerio = require('cheerio');
 
 // giphy.random('gifs', `sesame street`).then(res => {
 //   console.log(`${res.data.url}`);
@@ -13,14 +14,29 @@ let giphy = Giphy(giphyToken);
 //   console.log(res.data.length > 0, 'length');
 // });
 
-axios
-  .get('https://thevirustracker.com/free-api?countryTotal=US')
-  .then(response => {
-    if (response.data.countrydata) {
-      console.log(
-        `${response.data.countrydata[0].info.title}\nTotal cases: ${response.data.countrydata[0].total_cases}\nTotal recovered: ${response.data.countrydata[0].total_recovered}\nTotal deaths: ${response.data.countrydata[0].total_deaths}\nTotal new cases today: ${response.data.countrydata[0].total_new_cases_today}\nTotal new deaths today: ${response.data.countrydata[0].total_new_deaths_today}`
-      );
-    } else {
-      console.log('nope');
+// axios
+//   .get('https://thevirustracker.com/free-api?countryTotal=US')
+//   .then(response => {
+//     if (response.data.countrydata) {
+//       console.log(
+//         `${response.data.countrydata[0].info.title}\nTotal cases: ${response.data.countrydata[0].total_cases}\nTotal recovered: ${response.data.countrydata[0].total_recovered}\nTotal deaths: ${response.data.countrydata[0].total_deaths}\nTotal new cases today: ${response.data.countrydata[0].total_new_cases_today}\nTotal new deaths today: ${response.data.countrydata[0].total_new_deaths_today}`
+//       );
+//     } else {
+//       console.log('nope');
+//     }
+//   });
+
+// need to mimic this with cheerio
+// [...document.querySelectorAll('span')].filter(el => el.textContent.includes('Free Now') && el.attributes.length == 1)
+
+axios.get('https://www.epicgames.com/store/en-US/free-games').then(response => {
+  const $ = cheerio.load(response.data);
+
+  try {
+    console.log($('span'));
+  } catch (error) {
+    if (error) {
+      throw error;
     }
-  });
+  }
+});
