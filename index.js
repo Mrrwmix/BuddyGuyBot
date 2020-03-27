@@ -16,18 +16,14 @@ let P = new Pokedex();
 let giphy = Giphy(giphyToken);
 bot.on('ready', () => {
   console.log('Bot is working');
+
+  setInterval(function() {
+    bot.channels
+      .get('183390087806058497')
+      .send('https://www.epicgames.com/store/en-US/free-games');
+  }, 604800000);
 });
 bot.login(token);
-
-bot.channels
-  .get('183390087806058497')
-  .send('https://www.epicgames.com/store/en-US/free-games');
-
-setInterval(function() {
-  bot.channels
-    .get('183390087806058497')
-    .send('https://www.epicgames.com/store/en-US/free-games');
-}, 604800000);
 
 bot.on('message', msg => {
   if (msg.content.toLowerCase() == 'hello') {
