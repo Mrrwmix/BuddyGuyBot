@@ -19,6 +19,10 @@ bot.on('ready', () => {
 });
 bot.login(token);
 
+bot.channels
+  .get('183390087806058497')
+  .send('https://www.epicgames.com/store/en-US/free-games');
+
 setInterval(function() {
   bot.channels
     .get('183390087806058497')
