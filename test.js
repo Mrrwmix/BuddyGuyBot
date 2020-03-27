@@ -29,14 +29,35 @@ const cheerio = require('cheerio');
 // need to mimic this with cheerio
 // [...document.querySelectorAll('span')].filter(el => el.textContent.includes('Free Now') && el.attributes.length == 1)
 
-axios.get('https://www.epicgames.com/store/en-US/free-games').then(response => {
-  const $ = cheerio.load(response.data);
+// axios.get('https://www.epicgames.com/store/en-US/free-games').then(response => {
+//   const $ = cheerio.load(response.data);
 
-  try {
-    console.log($('span'));
-  } catch (error) {
-    if (error) {
-      throw error;
-    }
-  }
-});
+//   try {
+//     console.log($('a[href]'));
+//   } catch (error) {
+//     if (error) {
+//       throw error;
+//     }
+//   }
+// });
+// require('dotenv').config();
+
+// const Discord = require('discord.js');
+// const reminderBot = new Discord.Client();
+// const token = process.env.BOT_TOKEN;
+
+// reminderBot.login(token).then(() => {
+//   console.log('I am ready');
+//   var guild = reminderBot.guilds.get('guildid');
+//   if (guild && guild.channels.get('channelid')) {
+//     guild.channels
+//       .get('channelid')
+//       .send('Testle')
+//       .then(() => reminderBot.destroy());
+//   } else {
+//     console.log('nope');
+//     //if the bot doesn't have guild with the id guildid
+//     // or if the guild doesn't have the channel with id channelid
+//   }
+//   reminderBot.destroy();
+// });

@@ -19,6 +19,12 @@ bot.on('ready', () => {
 });
 bot.login(token);
 
+setInterval(function() {
+  bot.channels
+    .get('183390087806058497')
+    .send('https://www.epicgames.com/store/en-US/free-games');
+}, 604800000);
+
 bot.on('message', msg => {
   if (msg.content.toLowerCase() == 'hello') {
     let chance = Math.random();
