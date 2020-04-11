@@ -1,91 +1,89 @@
-require('dotenv').config();
-const Discord = require('discord.js');
-const axios = require('axios');
-const moment = require('moment');
-const Pokedex = require('pokedex-promise-v2');
-const Giphy = require('giphy-js-sdk-core');
+require("dotenv").config();
+const Discord = require("discord.js");
+const axios = require("axios");
+const moment = require("moment");
+const Pokedex = require("pokedex-promise-v2");
+const Giphy = require("giphy-js-sdk-core");
+const numeral = require("numeral");
 
 const bot = new Discord.Client();
 
 const token = process.env.BOT_TOKEN;
 const darkskyKey = process.env.DARK_SKY_KEY;
 let giphyToken = process.env.GIPHY_KEY;
-const prefix = '!';
+const prefix = "!";
 
 let P = new Pokedex();
 let giphy = Giphy(giphyToken);
-bot.on('ready', () => {
-  console.log('Bot is working');
+bot.on("ready", () => {
+  console.log("Bot is working");
 
-  setInterval(function() {
+  setInterval(function () {
     bot.channels
-      .get('183390087806058497')
-      .send('https://www.epicgames.com/store/en-US/free-games');
+      .get("183390087806058497")
+      .send("https://www.epicgames.com/store/en-US/free-games");
   }, 604800000);
 });
 bot.login(token);
 
-bot.on('message', msg => {
-  if (msg.content.toLowerCase() == 'hello') {
+bot.on("message", (msg) => {
+  if (msg.content.toLowerCase() == "hello") {
     let chance = Math.random();
     if (chance > 0.9) {
-      msg.reply('Eff off!');
+      msg.reply("Eff off!");
     } else if (chance > 0.8) {
-      msg.reply('Wazzzzzzzzzzzzzzzzzup!?');
+      msg.reply("Wazzzzzzzzzzzzzzzzzup!?");
     } else if (chance > 0.7) {
       msg.reply("Don't be a Yamcha. :yamcha:");
     } else if (chance > 0.6) {
       msg.reply("I'm not your friend, pal. :ppgoku:");
     } else if (chance > 0.5) {
-      msg.reply('BULLSHARK TESTOSTERONE!');
+      msg.reply("BULLSHARK TESTOSTERONE!");
     } else if (chance > 0.4) {
-      msg.reply('Big gulps, huh? Welp, see ya later.');
+      msg.reply("Big gulps, huh? Welp, see ya later.");
     } else if (chance > 0.3) {
-      msg.reply('I know Kung-Fu.');
+      msg.reply("I know Kung-Fu.");
     } else if (chance > 0.2) {
-      msg.reply('Fight the powa!');
+      msg.reply("Fight the powa!");
     } else if (chance > 0.1) {
-      msg.reply('With great power comes great responsibility.');
+      msg.reply("With great power comes great responsibility.");
     } else {
-      msg.reply('Wot?');
+      msg.reply("Wot?");
     }
   }
 });
 
-bot.on('message', msg => {
+bot.on("message", (msg) => {
   if (!msg.content.startsWith(prefix)) {
     return;
   }
-  const args = msg.content
-    .slice(prefix.length)
-    .trim()
-    .split(/ +/g);
+  const args = msg.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   console.log(args);
   console.log(command);
-  let parameters = args.join(' ');
+  let parameters = args.join(" ");
   console.log(parameters);
 
   switch (command) {
-    case 'joke':
+    case "joke":
       if (Math.random() > 0.5) {
         axios
-          .get('https://icanhazdadjoke.com/slack')
-          .then(response =>
+          .get("https://icanhazdadjoke.com/slack")
+          .then((response) =>
             msg.channel.send(`${response.data.attachments[0].text}`)
           );
       } else {
         axios
-          .get('https://official-joke-api.appspot.com/random_joke')
-          .then(response => {
+          .get("https://official-joke-api.appspot.com/random_joke")
+          .then((response) => {
             msg.channel.send(
               `${response.data.setup}\n${response.data.punchline}`
             );
           });
       }
       break;
-    case 'catfact':
-      axios.get('https://cat-fact.herokuapp.com/facts').then(response => {
+    case "catfact":
+      axios.get("https://cat-fact.herokuapp.com/facts").then((response) => {
         msg.channel.send(
           `${
             response.data.all[
@@ -95,13 +93,13 @@ bot.on('message', msg => {
         );
       });
       break;
-    case 'gif':
+    case "gif":
       if (parameters.length === 0) {
         msg.channel.send(
           `Don't forget to type in something to search for after "!gif". Example: !gif pokemon`
         );
       } else {
-        giphy.search('gifs', { q: `${parameters}` }).then(res => {
+        giphy.search("gifs", { q: `${parameters}` }).then((res) => {
           if (res.data.length > 0) {
             msg.channel.send(
               res.data[Math.floor(Math.random() * res.data.length)].url
@@ -114,19 +112,19 @@ bot.on('message', msg => {
         });
       }
       break;
-    case 'sticker':
-      giphy.random('stickers', '').then(res => {
+    case "sticker":
+      giphy.random("stickers", "").then((res) => {
         msg.channel.send(`${res.data.url}`);
       });
       break;
-    case 'random':
-      giphy.random('gifs', '').then(res => {
+    case "random":
+      giphy.random("gifs", "").then((res) => {
         msg.channel.send(`${res.data.url}`);
       });
       break;
-    case 'pokemon':
-      P.getPokemonByName(parameters).then(function(response) {
-        let stats = '';
+    case "pokemon":
+      P.getPokemonByName(parameters).then(function (response) {
+        let stats = "";
         for (x in response.stats) {
           stats = stats.concat(
             `${response.stats[x].stat.name}(${response.stats[x].base_stat}) `
@@ -144,41 +142,41 @@ bot.on('message', msg => {
       });
       break;
 
-    case 'concerts':
+    case "concerts":
       axios
         .get(
           `https://rest.bandsintown.com/artists/${parameters
-            .split(' ')
-            .join('+')}/events?app_id=codingbootcamp`
+            .split(" ")
+            .join("+")}/events?app_id=codingbootcamp`
         )
-        .then(response => {
+        .then((response) => {
           for (let i = 0; i < response.data.length; i++) {
             msg.channel.send(
               response.data[i].venue.name +
-                ' in ' +
+                " in " +
                 response.data[i].venue.city +
-                ', ' +
+                ", " +
                 response.data[i].venue.region +
-                ', ' +
+                ", " +
                 response.data[i].venue.country +
-                ' on ' +
-                moment(response.data[i].datetime).format('MM/DD/YYYY') +
-                '.'
+                " on " +
+                moment(response.data[i].datetime).format("MM/DD/YYYY") +
+                "."
             );
           }
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log(err);
         });
 
       break;
-    case 'movie':
+    case "movie":
       axios
         .get(
           `http://www.omdbapi.com/?t=${parameters}&y=&plot=short&apikey=trilogy`
         )
-        .then(response => {
-          if (response.data.Response == 'False') {
+        .then((response) => {
+          if (response.data.Response == "False") {
             return msg.channel.send(response.data.Error);
           }
           msg.channel.send(
@@ -186,27 +184,27 @@ bot.on('message', msg => {
           );
         });
       break;
-    case 'insult':
+    case "insult":
       axios
         .get(
-          'https://evilinsult.com/generate_insult.php?lang=en&type=plaintext'
+          "https://evilinsult.com/generate_insult.php?lang=en&type=plaintext"
         )
-        .then(response => {
+        .then((response) => {
           msg.channel.send(response.data);
         });
       break;
-    case 'advice':
+    case "advice":
       if (parameters.length === 0) {
-        axios.get('https://api.adviceslip.com/advice').then(response => {
+        axios.get("https://api.adviceslip.com/advice").then((response) => {
           msg.channel.send(response.data.slip.advice);
         });
       } else {
         axios
           .get(`https://api.adviceslip.com/advice/search/${parameters}`)
-          .then(response => {
+          .then((response) => {
             if (response.data.message) {
               return msg.channel.send(
-                response.data.message.text.replace('.', `: ${parameters}.`)
+                response.data.message.text.replace(".", `: ${parameters}.`)
               );
             }
             msg.channel.send(
@@ -217,8 +215,8 @@ bot.on('message', msg => {
           });
       }
       break;
-    case 'photo':
-      axios.get('https://picsum.photos/500/300').then(response => {
+    case "photo":
+      axios.get("https://picsum.photos/500/300").then((response) => {
         return msg.channel.send(
           response.request.res.client._httpMessage.res.responseUrl
         );
@@ -226,13 +224,23 @@ bot.on('message', msg => {
       break;
     default:
       break;
-    case 'covid':
+    case "covid":
       if (parameters.length === 0) {
         axios
-          .get('https://thevirustracker.com/free-api?global=stats')
-          .then(response => {
+          .get("https://thevirustracker.com/free-api?global=stats")
+          .then((response) => {
             msg.channel.send(
-              `Total cases: ${response.data.results[0].total_cases}\nTotal recovered: ${response.data.results[0].total_recovered}\nTotal deaths: ${response.data.results[0].total_deaths}\nNew cases today: ${response.data.results[0].total_new_cases_today}\nNew deaths today: ${response.data.results[0].total_new_deaths_today}`
+              `Total cases: ${numeral(
+                response.data.results[0].total_cases
+              ).format("0,0")}\nTotal recovered: ${numeral(
+                response.data.results[0].total_recovered
+              ).format("0,0")}\nTotal deaths: ${numeral(
+                response.data.results[0].total_deaths
+              ).format("0,0")}\nNew cases today: ${numeral(
+                response.data.results[0].total_new_cases_today
+              ).format("0,0")}\nNew deaths today: ${numeral(
+                response.data.results[0].total_new_deaths_today
+              ).format("0,0")}`
             );
           });
       } else {
@@ -240,14 +248,26 @@ bot.on('message', msg => {
           .get(
             `https://thevirustracker.com/free-api?countryTotal=${parameters}`
           )
-          .then(response => {
+          .then((response) => {
             if (response.data.countrydata) {
               msg.channel.send(
-                `${response.data.countrydata[0].info.title}'s Covid-19 stats\nTotal cases: ${response.data.countrydata[0].total_cases}\nTotal recovered: ${response.data.countrydata[0].total_recovered}\nTotal deaths: ${response.data.countrydata[0].total_deaths}\nTotal new cases today: ${response.data.countrydata[0].total_new_cases_today}\nTotal new deaths today: ${response.data.countrydata[0].total_new_deaths_today}`
+                `${
+                  response.data.countrydata[0].info.title
+                }'s Covid-19 stats\nTotal cases: ${numeral(
+                  response.data.countrydata[0].total_cases
+                ).format("0,0")}\nTotal recovered: ${numeral(
+                  response.data.countrydata[0].total_recovered
+                ).format("0,0")}\nTotal deaths: ${numeral(
+                  response.data.countrydata[0].total_deaths
+                ).format("0,0")}\nTotal new cases today: ${numeral(
+                  response.data.countrydata[0].total_new_cases_today
+                ).format("0,0")}\nTotal new deaths today: ${numeral(
+                  response.data.countrydata[0].total_new_deaths_today
+                ).format("0,0")}`
               );
             } else {
               msg.channel.send(
-                'Invalid country code. Use a 2-letter country code. Full list here:\nhttps://thevirustracker.com/api#indexpage'
+                "Invalid country code. Use a 2-letter country code. Full list here:\nhttps://thevirustracker.com/api#indexpage"
               );
             }
           });
