@@ -1,2 +1,9 @@
 .env
 node_modules
+dist/
+coverage/
+.nyc_output/
+.vscode
+.DS_Store
+*.log
+tsconfig.tsbuildinfo
