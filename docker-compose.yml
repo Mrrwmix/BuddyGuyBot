@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Mount the .env file from the host machine into the container's filesystem
+    volumes:
+      - ./local.env:/app/.env:ro # Mounts local.env as .env inside the container
+    # Optionally, you can specify environment variables here as well, but mounting .env is cleaner
+    # environment:
+    #   - NODE_ENV=production
+    restart: unless-stopped # Restart the container unless it's explicitly stopped

@@ -81,3 +81,32 @@ Without parameters, it will provide global statistics for the Covid-19 pandemic.
 With a 2-letter country code passed in, it will provide stats for that country.
 
 ![covid US](/screenshots/covidCountry.png)
+
+## Running with Docker
+
+For an easier setup that manages dependencies like Node.js, npm, and Playwright, you can run the bot using Docker.
+
+1.  **Prepare your environment file**: Create a file named `local.env` in the project root directory (`/path/to/BuddyGuyBot/local.env`). Add your environment variables to this file, ensuring the Discord bot token is named exactly `BOT_TOKEN`. Other variables from your original `.env` (like `DARK_SKY_KEY`, `GIPHY_KEY`) might also be needed depending on other commands, but for the core functionality and the `fplDeadline` command, `BOT_TOKEN` is crucial.
+    ```
+    BOT_TOKEN=your_discord_bot_token_here
+    DARK_SKY_KEY=your_dark_sky_key_here
+    GIPHY_KEY=your_giphy_key_here
+    ```
+    **Important:** Do not commit this `local.env` file to version control. It contains sensitive information.
+
+2.  **Install Docker and Docker Compose**: Ensure you have both [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed on your system.
+
+3.  **Build and run the container**:
+    From the project root directory, run the following command:
+    ```bash
+    docker-compose up -d
+    ```
+    This command will build the Docker image (if it hasn't been built already) and start the bot container in detached mode.
+
+4.  **Stopping the container**:
+    To stop the running container, run:
+    ```bash
+    docker-compose down
+    ```
+
+The container will automatically install Playwright's required browser dependencies during the image build process, resolving errors like "Executable doesn't exist at ...".
